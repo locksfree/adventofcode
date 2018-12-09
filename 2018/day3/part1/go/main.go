@@ -38,12 +38,18 @@ type rect struct {
 	x, y, w, h int
 }
 
-type cell struct {
-	x, y int
-}
-
 func (a rect) empty() bool {
 	return a.w == 0 && a.h == 0
+}
+
+func (a rect) intersect(b rect) rect {
+	r1, r2 := vsortRect(a, b)
+	x1, y1 := intMax(r1.x, r2.x), intMax(r1.y, r2.y)
+	x2, y2 := intMin(r1.x+r1.w, r2.x+r2.w), intMin(r1.y+r1.h, r2.y+r2.h)
+	if x2 <= x1 || y2 <= y1 {
+		return rect{}
+	}
+	return rect{id: "", x: x1, y: y1, w: x2 - x1, h: y2 - y1}
 }
 
 func intMax(a, b int) int {
@@ -59,16 +65,6 @@ func intMin(a, b int) int {
 	return b
 }
 
-func (a rect) intersect(b rect) rect {
-	r1, r2 := vsortRect(a, b)
-	x1, y1 := intMax(r1.x, r2.x), intMax(r1.y, r2.y)
-	x2, y2 := intMin(r1.x+r1.w, r2.x+r2.w), intMin(r1.y+r1.h, r2.y+r2.h)
-	if x2 <= x1 || y2 <= y1 {
-		return rect{}
-	}
-	return rect{id: "", x: x1, y: y1, w: x2 - x1, h: y2 - y1}
-}
-
 func vsortRect(a, b rect) (rect, rect) {
 	if a.y > b.y {
 		return b, a
@@ -79,6 +75,10 @@ func vsortRect(a, b rect) (rect, rect) {
 		}
 	}
 	return a, b
+}
+
+type cell struct {
+	x, y int
 }
 
 func (a rect) cells() []cell {
