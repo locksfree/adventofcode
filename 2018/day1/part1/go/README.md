@@ -1,3 +1,16 @@
-This piece of code: 
+[Link to the puzzle](https://adventofcode.com/2018/day/1)
 
- https://github.com/locksfree/adventofcode/blob/28427072ce2f8a946e764ac53c987fe1ee9afe65/2018/day1/part1/go/main.go#L12-L23
+> Starting with a frequency of zero, what is the resulting frequency after all of the changes in frequency have been applied?
+
+The result can be obtained by calculating a simple running total:
+
+```go
+func main() {
+	values := readInts(readLines("input.txt"))
+	var result int
+	for _, v := range values {
+		result += v
+	}
+	fmt.Printf("RESULT: %d\n", result)
+}
+```
