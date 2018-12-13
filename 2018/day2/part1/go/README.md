@@ -25,6 +25,21 @@ Follows then count of the occurences as described in the puzzle, any ID will hav
  * one or more letter repeating thrice (it just count once as 1 ID)
  * letters repeating more times (ignored)
  
+for this we use a helper indicator function that returns true when at least one character has the exact requested number of repetitions:
+
+```go
+func hasExactly(distrib map[rune]int, occurences int) bool {
+	for _, count := range distrib {
+		if occurences == count {
+			return true
+		}
+	}
+	return false
+}
+```
+ 
+with which the number of IDs with exactly 2 and exactly 3 repetition of the same letter can be found and multiplied together to produce the answer:
+ 
 ```go
 func main() {
 	lines := readLines("input.txt")
@@ -44,3 +59,5 @@ func main() {
 	fmt.Printf("RESULT: %d\n", count2*count3)
 }
 ```
+
+[View Full Code](./main.go)
