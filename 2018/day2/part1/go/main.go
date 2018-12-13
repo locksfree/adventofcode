@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	lines := readLines()
+	lines := readLines("input.txt")
 	var count2, count3 int
 
 	for _, line := range lines {
@@ -47,8 +47,8 @@ func hasExactly(distrib map[rune]int, occurences int) bool {
 	return false
 }
 
-func readLines() []string {
-	file, err := os.Open("input.txt")
+func readLines(name string) []string {
+	file, err := os.Open(name)
 	if err != nil {
 		log.Fatalf("Could not open input file")
 	}
