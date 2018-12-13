@@ -14,3 +14,5 @@ func main() {
 	fmt.Printf("RESULT: %d\n", result)
 }
 ```
+
+[Full Code](./main.go)
