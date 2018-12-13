@@ -13,21 +13,12 @@ func main() {
 	var count2, count3 int
 
 	for _, line := range lines {
-		occurences := lettersDistribution(line)
+		distrib := lettersDistribution(line)
 
-		var has2, has3 bool
-		for _, count := range occurences {
-			if count == 2 {
-				has2 = true
-			} else if count == 3 {
-				has3 = true
-			}
-		}
-
-		if has2 {
+		if hasExactly(distrib, 2) {
 			count2++
 		}
-		if has3 {
+		if hasExactly(distrib, 3) {
 			count3++
 		}
 	}
@@ -45,6 +36,15 @@ func lettersDistribution(line string) map[rune]int {
 		occurences[letter] = v + 1
 	}
 	return occurences
+}
+
+func hasExactly(distrib map[rune]int, occurences int) bool {
+	for _, count := range distrib {
+		if occurences == count {
+			return true
+		}
+	}
+	return false
 }
 
 func readLines() []string {
